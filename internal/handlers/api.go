@@ -6,7 +6,7 @@ import (
 	"github.com/Idinmaster/Golang_API_Test/internal/middleware"
 )
 
-func Handler(r *chi.Mus) {
+func Handler(r *chi.Mux) {
 	// Global middleware
 	r.Use(chimiddle.StripSlashes)
 

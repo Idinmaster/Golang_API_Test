@@ -16,7 +16,7 @@ func Authorization(next http.Handler) http.Handler {
 
 		var username string = r.URL.Query().Get("username")
 		var token = r.Header.Get("Authorization")
-		var err errors
+		var err error
 
 		if username  == "" || token == "" {
 			log.Error(UnAuthorizedError)
@@ -25,13 +25,13 @@ func Authorization(next http.Handler) http.Handler {
 		}
 
 		var database *tools.DatabaseInterface
-		database, err = tool.NewDatabase()
+		database, err = tools.NewDatabase()
 		if err != nil {
 			api.InternalErrorHandler(w)
 			return
 		}
 
-		var loginDetails *tools.loginDetails
+		var loginDetails *tools.LoginDetails
 		loginDetails = (*database).GetUserLoginDetails(username)
 
 		if(loginDetails == nil || (token != (*loginDetails).AuthToken)) {

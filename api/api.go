@@ -33,13 +33,13 @@ func writeError(w http.ResponseWriter, message string, code int) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	w.writeHeader(code)
+	w.WriteHeader(code)
 
 	json.NewEncoder(w).Encode(resp)
 }
 
 var (
-	RequestErrorHandler = func(w http.ResponseWriter) {
+	RequestErrorHandler = func(w http.ResponseWriter, err error) {
 		writeError(w, err.Error(), http.StatusBadRequest)
 	}
 	InternalErrorHandler = func(w http.ResponseWriter) {
